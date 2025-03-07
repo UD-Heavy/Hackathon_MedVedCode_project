@@ -21,15 +21,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserDetailsService detailsService;
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider authenticationProvider(UserDetailsService detailsService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(detailsService);
         provider.setPasswordEncoder(passwordEncoder());
@@ -67,19 +65,17 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(request -> request
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/").hasAnyRole("ADMIN", "DOCTOR", "NURSE")
-                        .requestMatchers("/info", "/login", "/error").permitAll()
+                        .requestMatchers("/info", "/auth/login", "/error").permitAll()
                         .anyRequest().hasAnyRole("ADMIN", "DOCTOR", "NURSE"))
                 .formLogin(form -> form
-//                        .loginPage("/login")
-                        .defaultSuccessUrl("/test")
-//                        .loginProcessingUrl("/perform-login")
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/process_login")
+                        .defaultSuccessUrl("/", true)
                         .failureForwardUrl("/login?error")
                 )
-//                .oneTimeTokenLogin(Customizer.withDefaults())
                 .logout(form -> form
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/info"))
-                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 }

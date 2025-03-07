@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница медицинского сайта</title>
+</head>
+<body>
+<header>
+    <h1>Медицинский портал</h1>
+    <nav>
+        <ul>
+            <li><a href="#home">Главная</a></li>
+            <li><a href="#calendar">Календарь</a></li>
+            <li><a href="#events">События</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="home">
+        <h2 th:text="'Добро пожаловать, ' + ${username} + ' на наш медицинский портал'"></h2>
+        <p>Здесь вы можете найти информацию о медицинских услугах, расписании приемов и различной полезной информации.</p>
+    </section>
+
+    <section id="calendar">
+        <h2>Календарь</h2>
+        <p>Запланированные мероприятия на ближайшие дни:</p>
+        <ul>
+            <li>1 октября: Вебинар по здравоохранению</li>
+            <li>5 октября: День открытых дверей</li>
+            <li>10 октября: Конференция по медицинским инновациям</li>
+        </ul>
+    </section>
+
+    <section id="events">
+        <h2>Расписание ближайших событий</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Событие</th>
+                <th>Время</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2 октября</td>
+                <td>Прием специалистов</td>
+                <td>10:00 - 15:00</td>
+            </tr>
+            <tr>
+                <td>4 октября</td>
+                <td>Семинар по профилактике заболеваний</td>
+                <td>11:00 - 13:00</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="contacts">
+        <h2>Ссылки для взаимодействия</h2>
+        <ul>
+            <li><a href="https://example.com/system1">Система 1</a></li>
+            <li><a href="https://example.com/system2">Система 2</a></li>
+            <li><a href="https://example.com/system3">Система 3</a></li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2023 Медицинский портал. Все права защищены.</p>
+</footer>
+</body>
+</html>
