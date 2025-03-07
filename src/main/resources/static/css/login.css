@@ -1,0 +1,136 @@
+/* styles.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative; /* Для позиционирования language-switcher */
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+}
+
+.login-container input {
+    width: 100%; /* Изменим на 100%, чтобы учесть padding и border */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box; /* Убедимся, что padding и border не увеличивают ширину */
+}
+
+/* Контейнер для поля пароля и иконки */
+.password-container {
+    position: relative;
+    margin-bottom: 10px; /* Отступ перед кнопкой или ссылкой */
+}
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%; /* Убедимся, что поле занимает всю доступную ширину */
+    padding-right: 40px; /* Делаем место для иконки справа */
+    padding-left: 10px; /* Для симметрии и удобства ввода */
+}
+
+/* Стили для иконки глаза */
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+    color: #777; /* Цвет иконки по умолчанию */
+}
+
+.toggle-password:hover {
+    color: #333; /* Изменение цвета при наведении (опционально) */
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-container button:hover {
+    background-color: #0056b3;
+}
+
+.password-container .forgot-password {
+    display: block;
+    text-align: right;
+    margin-top: 5px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.password-container .forgot-password:hover {
+    text-decoration: underline;
+}
+
+.caps-warning {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+.language-switcher {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.lang-btn {
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем границу */
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 14px;
+    color: black; /* Черный цвет текста по умолчанию */
+    transition: color 0.3s ease; /* Плавное изменение цвета текста */
+}
+
+.lang-btn:hover {
+    color: #007bff; /* Синий цвет текста при наведении */
+}
+
+.lang-btn:focus {
+    color: #007bff; /* Синий цвет текста при фокусе */
+    outline: none; /* Убираем стандартный outline */
+}

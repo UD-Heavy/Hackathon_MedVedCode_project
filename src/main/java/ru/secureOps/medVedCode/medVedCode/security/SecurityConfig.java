@@ -63,9 +63,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(request -> request
+                        .requestMatchers("/static/**", "/css/**", "/js/**", "/img/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/").hasAnyRole("ADMIN", "DOCTOR", "NURSE")
-                        .requestMatchers("/info", "/auth/login", "/error").permitAll()
+                        .requestMatchers("/info", "/auth/login", "/error", "/logout").permitAll()
                         .anyRequest().hasAnyRole("ADMIN", "DOCTOR", "NURSE"))
                 .formLogin(form -> form
                         .loginPage("/auth/login")
@@ -75,7 +76,7 @@ public class SecurityConfig {
                 )
                 .logout(form -> form
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/info"))
+                        .logoutSuccessUrl("/auth/login"))
                 .build();
     }
 }

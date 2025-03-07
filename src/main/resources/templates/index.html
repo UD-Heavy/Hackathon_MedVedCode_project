@@ -7,6 +7,9 @@
 </head>
 <body>
 <header>
+    <form th:action="@{/logout}" th:method="POST">
+        <input type="submit" th:value="Logout">
+    </form>
     <h1>Медицинский портал</h1>
     <nav>
         <ul>
