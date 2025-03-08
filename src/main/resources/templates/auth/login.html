@@ -14,7 +14,7 @@
     <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
 </div>
 <div class="login-container">
-    <h2><img th:src="@{/img/logo.svg}" alt="Logo" style="vertical-align: middle; margin-right: 10px;">MeдВед</h2>
+    <h2><img th:src="@{/img/logo.svg}" alt="Logo" style="vertical-align: middle; margin-right: 10px;">MeдВед.Код</h2>
     <form name="f" method="post" action="/process_login">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <input type="text" placeholder="Имя пользователя" name="username" id="username">
