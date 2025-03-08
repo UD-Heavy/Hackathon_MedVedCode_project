@@ -12,3 +12,11 @@ spring:
     user:
       name:
       password:
+server:
+  error:
+    path: /error
+    whitelabel:
+      enabled: false
+
+logging:
+  config:
