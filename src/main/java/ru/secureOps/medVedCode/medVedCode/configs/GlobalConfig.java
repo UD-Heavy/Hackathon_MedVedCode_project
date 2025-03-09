@@ -9,7 +9,7 @@ import ru.secureOps.medVedCode.medVedCode.services.PersonDetailsService;
 public class GlobalConfig {
 
     @Bean
-    public PersonDetailsService personDetailsService(PersonRepository personRepository){
+    public PersonDetailsService personDetailsService(PersonRepository personRepository) {
         return new PersonDetailsService(personRepository);
     }
 }
