@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import ru.secureOps.medVedCode.medVedCode.security.PersonDetails;
 
 @Controller
@@ -19,5 +20,11 @@ public class MainController {
         model.addAttribute("username", personDetails.getUsername());
         return "index";
     }
+    @GetMapping("/info")
+    public String getInfo()
+    {
+        return "info";
+    }
+    
 }
 
