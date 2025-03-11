@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+nav a:hover {
+    color: #007bff;
+}
+
+.book-now {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.book-now:hover {
+    background-color: #007bff;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 100px);
+    text-align: center;
+}
+
+.content {
+    max-width: 600px;
+}
+
+h1 {
+    font-size: 48px;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    color: #007bff;
+    margin-bottom: 30px;
+}
+
+.contact {
+    font-size: 16px;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.appointment {
+    font-size: 20px;
+    color: #007bff;
+    font-weight: bold;
+}
+/* Подключение шрифта Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+/* Стили для выпадающего списка */
+#language-select {
+    font-family: 'Roboto', sans-serif; /* Шрифт Roboto */
+    font-size: 14px; /* Размер шрифта */
+    font-weight: 500; /* Жирность шрифта */
+    color: #333; /* Цвет текста */
+    background-color: white; /* Белый фон */
+    border: 1px solid #ccc; /* Граница */
+    border-radius: 4px; /* Закругленные углы */
+    padding: 8px 12px; /* Отступы внутри */
+    cursor: pointer; /* Курсор в виде указателя */
+    outline: none; /* Убираем обводку при фокусе */
+    transition: border-color 0.3s ease; /* Плавное изменение цвета границы */
+}
+
+/* Стили при наведении */
+#language-select:hover {
+    border-color: #666; /* Темнее граница при наведении */
+}
+
+/* Стили при фокусе */
+#language-select:focus {
+    border-color: #007BFF; /* Синяя граница при фокусе */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Легкая тень */
+}
+
+/* Стили для опций */
+#language-select option {
+    font-family: 'Roboto', sans-serif; /* Шрифт Roboto */
+    font-size: 14px; /* Размер шрифта */
+    background-color: white; /* Белый фон */
+    color: #333; /* Цвет текста */
+}
