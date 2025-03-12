@@ -135,3 +135,16 @@ body {
     color: #007bff; /* Синий цвет текста при фокусе */
     outline: none; /* Убираем стандартный outline */
 }
+.svg-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ширина контейнера */
+    height: 100px; /* Высота контейнера */
+    margin: 20px 0; /* Отступы сверху и снизу */
+}
+
+.svg-container svg {
+    max-width: 100%; /* Максимальная ширина SVG */
+    max-height: 100%; /* Максимальная высота SVG */
+}

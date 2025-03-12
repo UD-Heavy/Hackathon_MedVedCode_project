@@ -22,9 +22,10 @@
 </div>
 <div class="login-container">
     <h2>
-        <img th:src="@{/img/logo.svg}" alt="Logo" style="vertical-align: middle; margin-right: 10px;"
-             th:text="#{login.authorizationForm.projectName}"
-        >
+        <div class="svg-container">
+            <img th:src="@{/img/logo.svg}" alt="Logo">
+        </div>
+        <span th:text="#{login.authorizationForm.projectName}"></span>
     </h2>
     <form name="f" method="post" action="/process_login">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
