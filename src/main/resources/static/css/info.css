@@ -1,30 +1,70 @@
+/* Общие стили с шрифтом Roboto */
 body {
-    font-family: Arial, sans-serif;
+    /* Шрифт */
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    
+    /* Отступы */
     margin: 0;
     padding: 0;
+    
+    /* Цвета */
     background-color: #f9f9f9;
     color: #333;
 }
 
+/* Стили для фиксированного верхнего меню */
 header {
+    /* Позиционирование */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+    
+    /* Отображение */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+    /* Отступы и размеры */
     padding: 20px 50px;
+    box-sizing: border-box;
+    
+    /* Цвета и границы */
     background-color: #fff;
     border-bottom: 1px solid #ddd;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
+/* Стили для контейнера логотипа */
+.svg-container {
+    display: flex;
+    align-items: center;
+}
+
+.svg-container img {
+    height: 52px;
+    width: auto;
+    max-width: 150px;
+}
+
+/* Стили для навигации */
+nav {
+    display: flex;
+    align-items: center;
 }
 
 nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #333;
+    /* Шрифт */
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
+    
+    /* Отступы */
+    margin: 0 15px;
+    
+    /* Цвета */
+    color: #333;
+    text-decoration: none;
 }
 
 nav a:hover {
@@ -32,86 +72,311 @@ nav a:hover {
 }
 
 .book-now {
+    /* Шрифт */
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    
+    /* Отступы */
+    padding: 10px 20px;
+    margin-left: 15px;
+    
+    /* Цвета */
     background-color: #007bff;
     color: #fff;
+    
+    /* Границы */
     border: none;
-    padding: 10px 20px;
     border-radius: 5px;
+    
+    /* Интерактивность */
     cursor: pointer;
 }
 
 .book-now:hover {
-    background-color: #007bff;
+    background-color: #0056b3;
 }
 
+/* Основной контейнер с адаптивным дизайном */
 main {
+    /* Отображение */
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: calc(100vh - 100px);
-    text-align: center;
+    
+    /* Размеры */
+    min-height: calc(100vh - 80px);
+    width: 100%;
+    
+    /* Отступы */
+    padding: 80px 0 20px;
+    box-sizing: border-box;
+    
+    /* Дополнительно */
+    overflow: hidden;
 }
 
+/* Контейнер для изображения врача */
+.doctor-container {
+    /* Позиционирование */
+    position: relative;
+    
+    /* Размеры */
+    width: clamp(30vmin, 45vw, 75vmin);
+    height: clamp(30vmin, 45vw, 75vmin);
+    
+    /* Отступы */
+    margin-left: -15vmin;
+    margin-right: 15px;
+    
+    /* Границы */
+    border: 1vmin solid #007bff;
+    border-radius: 50%;
+    
+    /* Анимация */
+    animation: slideInFromLeft 1.5s ease-out forwards;
+    
+    /* Дополнительно */
+    overflow: hidden;
+}
+
+.doctor-image {
+    /* Размеры */
+    width: 100%;
+    height: 100%;
+    
+    /* Обработка изображения */
+    object-fit: cover;
+    object-position: center;
+    
+    /* Границы */
+    border-radius: 50%;
+    
+    /* Анимация */
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Секция контента с текстом вплотную к правому краю */
 .content {
-    max-width: 600px;
+    /* Отображение */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+    /* Выравнивание текста */
+    text-align: right;
+    
+    /* Размеры */
+    width: 50%;
+    height: 100%;
+    max-width: none;
+    
+    /* Отступы */
+    padding: 0;
+    margin: 0;
+    
+    /* Дополнительно */
+    box-sizing: border-box;
 }
 
-h1 {
-    font-size: 48px;
+.content p {
+    /* Шрифт */
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(1.8vmin, 2.5vw, 2.5vmin);
+    
+    /* Размеры */
+    width: 100%;
+    
+    /* Отступы */
+    margin: 0;
+    padding: 0 1vmin 0 0;
+    
+    /* Цвета */
     color: #007bff;
-    margin-bottom: 20px;
+    
+    /* Дополнительно */
+    box-sizing: border-box;
 }
-
-p {
-    font-size: 18px;
-    color: #007bff;
-    margin-bottom: 30px;
-}
-
-.contact {
-    font-size: 16px;
-    color: #007bff;
-    margin-bottom: 20px;
-}
-
-.appointment {
-    font-size: 20px;
-    color: #007bff;
-    font-weight: bold;
-}
-/* Подключение шрифта Roboto */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 /* Стили для выпадающего списка */
 #language-select {
-    font-family: 'Roboto', sans-serif; /* Шрифт Roboto */
-    font-size: 14px; /* Размер шрифта */
-    font-weight: 500; /* Жирность шрифта */
-    color: #333; /* Цвет текста */
-    background-color: white; /* Белый фон */
-    border: 1px solid #ccc; /* Граница */
-    border-radius: 4px; /* Закругленные углы */
-    padding: 8px 12px; /* Отступы внутри */
-    cursor: pointer; /* Курсор в виде указателя */
-    outline: none; /* Убираем обводку при фокусе */
-    transition: border-color 0.3s ease; /* Плавное изменение цвета границы */
+    /* Шрифт */
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    
+    /* Отступы */
+    padding: 8px 12px;
+    margin-left: 15px;
+    
+    /* Цвета */
+    color: #333;
+    background-color: white;
+    
+    /* Границы */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+    /* Интерактивность */
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
-/* Стили при наведении */
 #language-select:hover {
-    border-color: #666; /* Темнее граница при наведении */
+    border-color: #666;
 }
 
-/* Стили при фокусе */
 #language-select:focus {
-    border-color: #007BFF; /* Синяя граница при фокусе */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Легкая тень */
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Стили для опций */
 #language-select option {
-    font-family: 'Roboto', sans-serif; /* Шрифт Roboto */
-    font-size: 14px; /* Размер шрифта */
-    background-color: white; /* Белый фон */
-    color: #333; /* Цвет текста */
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+}
+
+/* Стили для раздела с разработчиками */
+.developers {
+    /* Выравнивание */
+    text-align: center;
+    
+    /* Размеры */
+    max-width: 800px;
+    
+    /* Отступы */
+    margin: 5vmin auto;
+    padding: 3vmin;
+    
+    /* Цвета */
+    background-color: rgba(255, 255, 255, 0.9);
+    
+    /* Границы */
+    border-radius: 10px;
+    
+    /* Тень */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.developers h2 {
+    /* Шрифт */
+    font-size: clamp(2.5vmin, 4vw, 4vmin);
+    font-weight: 500;
+    
+    /* Отступы */
+    margin-bottom: 3vmin;
+    
+    /* Цвета */
+    color: #007bff;
+}
+
+.developers ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.developers li {
+    /* Шрифт */
+    font-size: clamp(2vmin, 2.5vw, 2.5vmin);
+    font-weight: 400;
+    
+    /* Отступы */
+    margin-bottom: 2vmin;
+    
+    /* Цвета */
+    color: #333;
+}
+
+.developers strong {
+    color: #007bff;
+    font-weight: 500;
+}
+
+/* Основной контейнер для контента */
+.main-content {
+    /* Отображение */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    /* Размеры */
+    min-height: calc(100vh - 80px);
+    width: 100%;
+    
+    /* Отступы */
+    padding: 80px 0 20px;
+    box-sizing: border-box;
+    
+    /* Дополнительно */
+    overflow: hidden;
+}
+
+/* Секция контента с текстом (второй вариант) */
+.content {
+    /* Отображение */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+    /* Выравнивание текста */
+    text-align: justify;
+    
+    /* Размеры */
+    width: 50%;
+    height: 100%;
+    max-width: none;
+    
+    /* Отступы */
+    padding: 0;
+    margin: 0;
+    
+    /* Дополнительно */
+    box-sizing: border-box;
+}
+
+.content p {
+    /* Шрифт */
+    font-family: 'Roboto', sans-serif;
+    font-size: calc(clamp(1.8vmin, 2.5vw, 2.5vmin) + 4px);
+    
+    /* Размеры */
+    width: 1000px;
+    
+    /* Отступы */
+    margin: 0;
+    padding: 0 1vmin 0 0;
+    
+    /* Цвета */
+    color: #007bff;
+    
+    /* Текст */
+    white-space: normal;
+    word-wrap: break-word;
+    
+    /* Дополнительно */
+    box-sizing: border-box;
 }

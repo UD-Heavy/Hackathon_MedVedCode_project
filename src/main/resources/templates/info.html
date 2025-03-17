@@ -1,53 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
-    <html lang="en" xmlns:th="http://www.thymeleaf.org">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Страница аутентификации</title>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-            <link rel="stylesheet" type="text/css" th:href="@{/css/info.css}"/>
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-                  rel="stylesheet">
-        
-            <!--    <script type="text/javascript" th:src="@{/js/login.js}"/>-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/info.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div class="logo">📋 SecureOPS</div>
+        <div class="svg-container">
+            <img th:src="@{/img/logo_main.png}" alt="Logo">
+        </div>
         <nav>
-            <a href="#">Домашняя страница</a>
-            <a href="#">Информация</a>
-            <a href="#">Сервисы</a>
-            <a href="#">Контакты</a>
             <button class="book-now">Вход</button>
             <select id="language-select">
-                <option value="en">English</option>
                 <option value="ru">Русский</option>
+                <option value="en">English</option>
             </select>
         </nav>
     </header>
     <main>
-        <section class="content">
-            <h1>Streamlining Healthcare for a</h1>
-            <p>Our software solution is designed to revolutionize the workflow of doctors, providing them with seamless access to information</p>
-            <div class="contact">
-                <span>📞</span> Contact Us
+        <!-- Основной контент: изображение и текст о проекте -->
+        <div class="main-content">
+            <div class="doctor-container">
+                <img th:src="@{/img/doctor.png}" alt="Doctor" class="doctor-image">
             </div>
-            <div class="appointment">
-                Schedule an Appointment
-            </div>
-        </section>
+            <section class="content">
+                <p>Это программное решение, которое автоматизирует рабочие процессы дежурного врача, упрощает доступ к информации, улучшает взаимодействие с пациентами и коллегами, а также повышает эффективность работы.</p>
+            </section>
+        </div>
     </main>
+
+    <!-- Раздел с информацией о разработчиках -->
+    <section class="developers">
+        <h2>Наша команда разработчиков</h2>
+        <ul>
+            <li><strong>Ананьев Владислав</strong> — Backend/Менеджер</li>
+            <li><strong>Митрофанов Алексей</strong> — Аналитик/Backend</li>
+            <li><strong>Хрипунов Максим</strong> — Frontend</li>
+            <li><strong>Медведев Владимир</strong> — Frontend</li>
+            <li><strong>Наточий Никита</strong> — Дизайнер</li>
+        </ul>
+    </section>
+
     <script>
-        // JavaScript для обработки смены языка
         document.getElementById('language-select').addEventListener('change', function() {
             var selectedLanguage = this.value;
-            // Здесь можно добавить логику для смены языка на сайте
             console.log('Выбран язык: ' + selectedLanguage);
-            // Например, перенаправление на страницу с выбранным языком
             // window.location.href = '/change-language?lang=' + selectedLanguage;
         });
     </script>
