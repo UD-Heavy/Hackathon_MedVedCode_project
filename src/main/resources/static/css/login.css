@@ -1,4 +1,3 @@
-/* styles.css */
 * {
     margin: 0;
     padding: 0;
@@ -14,7 +13,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    position: relative; /* Для позиционирования language-switcher */
+    position: relative;
 }
 
 .login-container {
@@ -31,19 +30,18 @@ body {
 }
 
 .login-container input {
-    width: 100%; /* Изменим на 100%, чтобы учесть padding и border */
+    width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-    box-sizing: border-box; /* Убедимся, что padding и border не увеличивают ширину */
+    box-sizing: border-box;
 }
 
-/* Контейнер для поля пароля и иконки */
 .password-container {
     position: relative;
-    margin-bottom: 10px; /* Отступ перед кнопкой или ссылкой */
+    margin-bottom: 10px;
 }
 
 .password-wrapper {
@@ -52,12 +50,11 @@ body {
 }
 
 .password-wrapper input {
-    width: 100%; /* Убедимся, что поле занимает всю доступную ширину */
-    padding-right: 40px; /* Делаем место для иконки справа */
-    padding-left: 10px; /* Для симметрии и удобства ввода */
+    width: 100%;
+    padding-right: 40px;
+    padding-left: 10px;
 }
 
-/* Стили для иконки глаза */
 .toggle-password {
     position: absolute;
     right: 10px;
@@ -66,11 +63,11 @@ body {
     cursor: pointer;
     font-size: 18px;
     user-select: none;
-    color: #777; /* Цвет иконки по умолчанию */
+    color: #777;
 }
 
 .toggle-password:hover {
-    color: #333; /* Изменение цвета при наведении (опционально) */
+    color: #333;
 }
 
 .login-container button {
@@ -86,19 +83,6 @@ body {
 
 .login-container button:hover {
     background-color: #0056b3;
-}
-
-.password-container .forgot-password {
-    display: block;
-    text-align: right;
-    margin-top: 5px;
-    color: #007bff;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.password-container .forgot-password:hover {
-    text-decoration: underline;
 }
 
 .caps-warning {
@@ -117,34 +101,80 @@ body {
 }
 
 .lang-btn {
-    background-color: transparent; /* Прозрачный фон */
-    border: none; /* Убираем границу */
+    background-color: transparent;
+    border: none;
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 3px;
     font-size: 14px;
-    color: black; /* Черный цвет текста по умолчанию */
-    transition: color 0.3s ease; /* Плавное изменение цвета текста */
+    color: black;
+    transition: color 0.3s ease;
 }
 
 .lang-btn:hover {
-    color: #007bff; /* Синий цвет текста при наведении */
+    color: #007bff;
 }
 
 .lang-btn:focus {
-    color: #007bff; /* Синий цвет текста при фокусе */
-    outline: none; /* Убираем стандартный outline */
-}
-.svg-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%; /* Ширина контейнера */
-    height: 100px; /* Высота контейнера */
-    margin: 20px 0; /* Отступы сверху и снизу */
+    color: #007bff;
+    outline: none;
 }
 
-.svg-container svg {
-    max-width: 100%; /* Максимальная ширина SVG */
-    max-height: 100%; /* Максимальная высота SVG */
+.svg-container {
+    display: flex;
+    justify-content: center; /* Выравнивание логотипа по центру */
+    align-items: center; /* Вертикальное центрирование */
+    width: 100%; /* Полная ширина контейнера */
+    margin-bottom: 10px; /* Отступ снизу перед полем ввода */
+}
+
+.svg-container img {
+    width: 320px; /* Увеличенная ширина */
+    height: 40px; /* Увеличенная высота */
+    object-fit: contain; /* Сохраняет пропорции изображения, не обрезая его */
+}
+/* Стили для контейнера пароля */
+.password-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    padding-right: 40px; /* Отступ для иконки */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+}
+
+.toggle-password:hover {
+    color: #007bff;
+}
+
+.caps-warning {
+    display: none;
+    color: #ff9800;
+    font-size: 12px;
+    margin-top: 5px;
+    font-family: 'Roboto', sans-serif;
 }
