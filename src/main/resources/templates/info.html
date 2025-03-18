@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница</title>
+    <title th:text="#{info.head.title}"></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/info.css}"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,11 +16,16 @@
             <img th:src="@{/img/logo_main.png}" alt="Logo">
         </div>
         <nav>
-            <button class="book-now">Вход</button>
-            <select id="language-select">
-                <option value="ru">Русский</option>
-                <option value="en">English</option>
-            </select>
+            <form action="/auth/login" method="get">
+                <button type="submit" class="book-now" th:text="#{info.header.loginButton}"></button>
+            </form>
+            <form action="">
+                <select id="language-select" name="lang" onchange="this.form.submit()">
+                    <option value="" disabled selected hidden th:text="#{info.header.language}"></option>
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                </select>
+            </form>
         </nav>
     </header>
     <main>
@@ -30,29 +35,21 @@
                 <img th:src="@{/img/doctor.png}" alt="Doctor" class="doctor-image">
             </div>
             <section class="content">
-                <p>Это программное решение, которое автоматизирует рабочие процессы дежурного врача, упрощает доступ к информации, улучшает взаимодействие с пациентами и коллегами, а также повышает эффективность работы.</p>
+                <p th:text="#{info.projectInfo}"></p>
             </section>
         </div>
     </main>
 
     <!-- Раздел с информацией о разработчиках -->
     <section class="developers">
-        <h2>Наша команда разработчиков</h2>
+        <h2 th:text="#{info.team.title}"></h2>
         <ul>
-            <li><strong>Ананьев Владислав</strong> — Backend/Менеджер</li>
-            <li><strong>Митрофанов Алексей</strong> — Аналитик/Backend</li>
-            <li><strong>Хрипунов Максим</strong> — Frontend</li>
-            <li><strong>Медведев Владимир</strong> — Frontend</li>
-            <li><strong>Наточий Никита</strong> — Дизайнер</li>
+            <li><strong th:text="#{info.team.member.ananyev.name}"></strong> — <span th:text="#{info.team.member.ananyev.role}"></span></li>
+            <li><strong th:text="#{info.team.member.mitrofanov.name}"></strong> — <span th:text="#{info.team.member.mitrofanov.role}"></span></li>
+            <li><strong th:text="#{info.team.member.kripunov.name}"></strong> — <span th:text="#{info.team.member.kripunov.role}"></span></li>
+            <li><strong th:text="#{info.team.member.medvedev.name}"></strong> — <span th:text="#{info.team.member.medvedev.role}"></span></li>
+            <li><strong th:text="#{info.team.member.natochiy.name}"></strong> — <span th:text="#{info.team.member.natochiy.role}"></span></li>
         </ul>
     </section>
-
-    <script>
-        document.getElementById('language-select').addEventListener('change', function() {
-            var selectedLanguage = this.value;
-            console.log('Выбран язык: ' + selectedLanguage);
-            // window.location.href = '/change-language?lang=' + selectedLanguage;
-        });
-    </script>
 </body>
 </html>

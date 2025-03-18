@@ -133,3 +133,48 @@ body {
     height: 40px; /* Увеличенная высота */
     object-fit: contain; /* Сохраняет пропорции изображения, не обрезая его */
 }
+/* Стили для контейнера пароля */
+.password-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    padding-right: 40px; /* Отступ для иконки */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+}
+
+.toggle-password:hover {
+    color: #007bff;
+}
+
+.caps-warning {
+    display: none;
+    color: #ff9800;
+    font-size: 12px;
+    margin-top: 5px;
+    font-family: 'Roboto', sans-serif;
+}

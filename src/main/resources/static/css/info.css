@@ -212,7 +212,7 @@ main {
     padding: 0 1vmin 0 0;
     
     /* Цвета */
-    color: #007bff;
+    color: #333;
     
     /* Дополнительно */
     box-sizing: border-box;
@@ -290,7 +290,7 @@ main {
     margin-bottom: 3vmin;
     
     /* Цвета */
-    color: #007bff;
+    color: #333;
 }
 
 .developers ul {
@@ -371,7 +371,7 @@ main {
     padding: 0 1vmin 0 0;
     
     /* Цвета */
-    color: #007bff;
+    color: #333;
     
     /* Текст */
     white-space: normal;
