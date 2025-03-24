@@ -335,4 +335,40 @@ nav a:hover {
         padding: 6px 8px;
         font-size: 12px;
     }
+    .user-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .block-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #dc3545;
+        font-size: 1rem;
+        padding: 5px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+    
+    .block-button:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .block-button i.fa-lock {
+        color: #dc3545;
+    }
+    
+    .block-button i.fa-unlock {
+        color: #28a745;
+    }
+    
+    .block-button:hover i.fa-lock {
+        color: #a71d2a;
+    }
+    
+    .block-button:hover i.fa-unlock {
+        color: #1e7e34;
+    }
 }
