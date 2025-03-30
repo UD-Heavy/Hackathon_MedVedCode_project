@@ -25,6 +25,11 @@ public class MainController {
     {
         return "info";
     }
+    @GetMapping("/calendar")
+    public String getCalendar()
+    {
+        return "calendar";
+    }
     
 }
 
