@@ -1,78 +1,153 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница медицинского сайта</title>
+    <title th:text="#{home.title}">Medical Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 <header>
-    <form th:action="@{/logout}" th:method="POST">
-        <input type="submit" th:value="Logout">
-    </form>
-    <h1>Медицинский портал</h1>
+    <div class="svg-container">
+        <a href="/">
+            <img th:src="@{/img/logo_main.png}" alt="Logo">
+        </a>
+    </div>
     <nav>
-        <ul>
-            <li><a th:href="@{/}">Главная</a></li>
-            <li><a th:href="@{/calendar}">Календарь</a></li>
-            <li><a th:href="@{/info}">Информация</a></li>
-        </ul>
+        <a th:href="@{/calendar}" th:text="#{home.calendar}">Calendar</a>
+        <a th:href="@{/info}" th:text="#{home.info}">Information</a>
+        <a th:href="@{/admin/adminPanel}" th:text="#{home.adminPanel}">Admin Panel</a>
+        <a th:href="@{/pacient}" th:text="#{patient.names}">Pacient</a>
+        <form th:if="${username}" th:action="@{/logout}" th:method="POST">
+            <button type="submit" class="logout-btn" th:text="#{home.logout}">Logout</button>
+        </form>
+        <form th:unless="${username}" action="/auth/login" method="get">
+            <button type="submit" class="book-now" th:text="#{home.login}">Login</button>
+        </form>
+        <form action="">
+            <select id="language-select" name="lang" onchange="this.form.submit()">
+                <option value="ru" th:selected="${#locale.language == 'ru'}">Русский</option>
+                <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+            </select>
+        </form>
     </nav>
 </header>
 
 <main>
-    <section id="home">
-        <h2 th:text="'Добро пожаловать, ' + ${username} + ' на наш медицинский портал'"></h2>
-        <p>Здесь вы можете найти информацию о медицинских услугах, расписании приемов и различной полезной информации.</p>
-    </section>
+    <div class="welcome-container">
+        <h2 th:if="${username}" th:text="#{home.welcomeUser(${username})}"></h2>
+        <h2 th:unless="${username}" th:text="#{home.welcome}"></h2>
+        <p th:text="#{home.description}"></p>
+    </div>
 
-    <section id="calendar">
-        <h2>Календарь</h2>
-        <p>Запланированные мероприятия на ближайшие дни:</p>
-        <ul>
-            <li>1 октября: Вебинар по здравоохранению</li>
-            <li>5 октября: День открытых дверей</li>
-            <li>10 октября: Конференция по медицинским инновациям</li>
-        </ul>
-    </section>
+    <div class="content-container">
+        <div class="calendar-preview">
+            <h3 th:text="#{calendar.title}">Event Calendar</h3>
+            <p th:text="#{calendar.upcomingEvents}">Upcoming events:</p>
+            <ul class="event-list">
+                <li>
+                    <div class="event-date">1 октября</div>
+                    <div class="event-info">
+                        <h4 th:text="#{calendar.event1.title}"></h4>
+                        <p th:text="#{calendar.event1.desc}"></p>
+                    </div>
+                </li>
+                <li>
+                    <div class="event-date">5 октября</div>
+                    <div class="event-info">
+                        <h4 th:text="#{calendar.event2.title}"></h4>
+                        <p th:text="#{calendar.event2.desc}"></p>
+                    </div>
+                </li>
+                <li>
+                    <div class="event-date">10 октября</div>
+                    <div class="event-info">
+                        <h4 th:text="#{calendar.event3.title}"></h4>
+                        <p th:text="#{calendar.event3.desc}"></p>
+                    </div>
+                </li>
+            </ul>
+            <a th:href="@{/calendar}" class="view-all-btn" th:text="#{calendar.viewAll}"><i class="fas fa-arrow-right"></i></a>
+        </div>
 
-    <section id="events">
-        <h2>Расписание ближайших событий</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Дата</th>
-                <th>Событие</th>
-                <th>Время</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>2 октября</td>
-                <td>Прием специалистов</td>
-                <td>10:00 - 15:00</td>
-            </tr>
-            <tr>
-                <td>4 октября</td>
-                <td>Семинар по профилактике заболеваний</td>
-                <td>11:00 - 13:00</td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
+        <div class="schedule-container">
+            <h3 th:text="#{schedule.title}"></h3>
+            <table class="schedule-table">
+                <thead>
+                <tr>
+                    <th th:text="#{schedule.date}"></th>
+                    <th th:text="#{schedule.event}"></th>
+                    <th th:text="#{schedule.time}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>2 октября</td>
+                    <td th:text="#{schedule.row1.event}"></td>
+                    <td>10:00 - 15:00</td>
+                </tr>
+                <tr>
+                    <td>4 октября</td>
+                    <td th:text="#{schedule.row2.event}"></td>
+                    <td>11:00 - 13:00</td>
+                </tr>
+                <tr>
+                    <td>7 октября</td>
+                    <td th:text="#{schedule.row3.event}"></td>
+                    <td>09:00 - 14:00</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <section id="contacts">
-        <h2>Ссылки для взаимодействия</h2>
-        <ul>
-            <li><a href="https://example.com/system1">Система 1</a></li>
-            <li><a href="https://example.com/system2">Система 2</a></li>
-            <li><a href="https://example.com/system3">Система 3</a></li>
-        </ul>
-    </section>
+        <div class="links-container">
+            <h3 th:text="#{resources.title}"></h3>
+            <div class="link-grid">
+                <a href="https://example.com/system1" class="link-card">
+                    <i class="fas fa-hospital"></i>
+                    <span th:text="#{resources.system1}"></span>
+                </a>
+                <a href="https://example.com/system2" class="link-card">
+                    <i class="fas fa-user-md"></i>
+                    <span th:text="#{resources.system2}"></span>
+                </a>
+                <a href="https://example.com/system3" class="link-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <span th:text="#{resources.system3}"></span>
+                </a>
+                <a th:href="@{/info}" class="link-card">
+                    <i class="fas fa-info-circle"></i>
+                    <span th:text="#{resources.moreInfo}"></span>
+                </a>
+            </div>
+        </div>
+    </div>
 </main>
 
 <footer>
-    <p>&copy; 2023 Медицинский портал. Все права защищены.</p>
+    <div class="footer-content">
+        <div class="footer-links">
+            <h4 th:text="#{footer.navigation}"></h4>
+            <ul>
+                <li><a th:href="@{/}" th:text="#{footer.home}"></a></li>
+                <li><a th:href="@{/calendar}" th:text="#{footer.calendar}"></a></li>
+                <li><a th:href="@{/info}" th:text="#{footer.info}"></a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4 th:text="#{footer.contacts}"></h4>
+            <p><i class="fas fa-phone"></i> +7 (999) 444-7745</p>
+            <p><i class="fas fa-envelope"></i> <span th:text="#{footer.students}"></span></p>
+            <p><i class="fas fa-map-marker-alt"></i> <span th:text="#{footer.address}"></span></p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p th:text="#{footer.copyright}"></p>
+    </div>
 </footer>
 </body>
 </html>
