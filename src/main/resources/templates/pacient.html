@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{search.title}"></title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/pacient.css}"/>
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="svg-container">
+            <a href="/">
+                <img th:src="@{/img/logo_main.png}" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <form action="/auth/login" method="get">
+                <button type="submit" class="book-now" th:text="#{header.logout}"></button>
+            </form>
+            <form action="">
+                <select id="language-select" name="lang" onchange="this.form.submit()">
+                    <option value="" disabled selected hidden th:text="#{header.language}"></option>
+                    <option value="ru" th:text="#{header.language.ru}" th:selected="${#locale.language == 'ru'}"></option>
+                    <option value="en" th:text="#{header.language.en}" th:selected="${#locale.language == 'en'}"></option>
+                </select>
+            </form>
+        </nav>
+    </header>
+
+    <div class="search-page">
+        <h1 th:text="#{search.title}"></h1>
+        
+        <!-- Форма поиска -->
+        <div class="search-container">
+            <form class="search-form">
+                <div class="form-group">
+                    <label th:text="#{search.fullName}"></label>
+                    <div class="name-fields">
+                        <input type="text" id="lastName" th:placeholder="#{search.lastName.placeholder}" style="margin-right: 10px;">
+                        <input type="text" id="firstName" th:placeholder="#{search.firstName.placeholder}" style="margin-right: 10px;">
+                        <input type="text" id="middleName" th:placeholder="#{search.middleName.placeholder}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber" th:text="#{search.cardNumber}"></label>
+                    <input type="text" id="cardNumber" th:placeholder="#{search.cardNumber.placeholder}">
+                </div>
+                <div class="form-group">
+                    <label for="diagnosis" th:text="#{search.diagnosis}"></label>
+                    <select id="diagnosis" name="diagnosis">
+                        <option value="" disabled selected hidden th:text="#{search.diagnosis.placeholder}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="search-button" th:text="#{search.button}"></button>
+            </form>
+        </div>
+
+        <!-- Результаты поиска -->
+        <div class="results-container">
+            <h2 th:text="#{results.title}"></h2>
+            <ul class="patient-list">
+                <li class="patient-item">
+                    <a href="#" class="patient-link">
+                        <div class="patient-info">
+                            <p><strong th:text="#{results.fullName}"></strong>: Иванов Иван Иванович</p>
+                            <p><strong th:text="#{results.cardNumber}"></strong>: 12345</p>
+                            <p><strong th:text="#{results.diagnosis}"></strong>: Гипертония</p>
+                        </div>
+                    </a>
+                </li>
+                <li class="patient-item">
+                    <a href="#" class="patient-link">
+                        <div class="patient-info">
+                            <p><strong th:text="#{results.fullName}"></strong>: Петров Петр Петрович</p>
+                            <p><strong th:text="#{results.cardNumber}"></strong>: 67890</p>
+                            <p><strong th:text="#{results.diagnosis}"></strong>: Диабет</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -30,6 +30,11 @@ public class MainController {
     {
         return "calendar";
     }
+    @GetMapping("/pacient")
+    public String getPacient()
+    {
+        return "pacient";
+    }
     
 }
 

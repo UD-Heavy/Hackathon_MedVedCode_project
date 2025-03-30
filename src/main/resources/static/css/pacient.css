@@ -1,0 +1,273 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Стили для шапки */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.svg-container {
+    display: flex;
+    align-items: center;
+}
+
+.svg-container img {
+    height: 52px;
+    width: auto;
+    max-width: 150px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+.book-now {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+    margin-left: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.book-now:hover {
+    background-color: #0056b3;
+}
+
+#language-select {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 12px;
+    margin-left: 15px;
+    color: #333;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#language-select:hover {
+    border-color: #666;
+}
+
+#language-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Заголовок и контейнер */
+.search-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 100px;
+}
+
+.search-page h1 {
+    font-size: clamp(2.5vmin, 4vw, 4vmin);
+    font-weight: 500;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Контейнер поиска */
+.search-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.search-form {
+    display: grid;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.search-button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для полей ФИО */
+.name-fields {
+    display: flex;
+    gap: 15px; /* Отступ между полями */
+    width: 100%; /* Занимает всю ширину контейнера */
+}
+
+.name-fields input {
+    flex: 1; /* Поля равномерно распределяют пространство */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.name-fields input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Результаты поиска */
+.results-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.results-container h2 {
+    font-size: 24px;
+    font-weight: 500;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.patient-list {
+    list-style: none;
+    padding: 0;
+}
+
+.patient-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    transition: box-shadow 0.3s ease; /* Плавная анимация тени */
+    border-radius: 5px; /* Скругленные углы для визуального эффекта */
+}
+
+.patient-item:last-child {
+    border-bottom: none;
+}
+
+.patient-link {
+    display: block; /* Ссылка занимает всю площадь элемента */
+    text-decoration: none; /* Убираем подчеркивание */
+    color: inherit; /* Наследуем цвет текста */
+    cursor: pointer; /* Курсор как у кнопки */
+}
+
+.patient-item:hover {
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.2); /* Тень при наведении */
+}
+
+.patient-item:active {
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3); /* Тень при нажатии (меньше и темнее) */
+}
+
+.patient-info {
+    flex: 1;
+}
+
+.patient-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.patient-info strong {
+    color: #007bff;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    .search-form {
+        grid-template-columns: 1fr;
+    }
+
+    .patient-item {
+        padding: 10px;
+    }
+
+    .name-fields {
+        flex-direction: column; /* На мобильных устройствах поля в столбец */
+        gap: 10px; /* Уменьшенный отступ для мобильных */
+    }
+
+    .name-fields input {
+        width: 100%; /* Поля занимают всю ширину на мобильных */
+    }
+    
+}
