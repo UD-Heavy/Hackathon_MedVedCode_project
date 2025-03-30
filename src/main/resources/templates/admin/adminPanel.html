@@ -1,10 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{admin.head.title}">Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/adminPanel.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-adminPage
+    <header>
+        <div class="svg-container">
+            <img th:src="@{/img/logo_main.png}" alt="Logo">
+        </div>
+        <nav>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="book-now" th:text="#{admin.logout}">Выход</button>
+            </form>
+            <form th:action="@{/admin/adminPanel}" method="get">
+                <select id="language-select" name="lang" onchange="this.form.submit()">
+                    <option value="ru" th:selected="${#locale.language == 'ru'}">Русский</option>
+                    <option value="en" th:selected="${#locale.language == 'en'}">English</option>
+                </select>
+            </form>
+        </nav>
+    </header>
+
+    <main class="admin-main">
+        <div class="admin-grid">
+            <!-- Left column - Create User -->
+            <div class="admin-column create-user">
+                <h2 th:text="#{admin.createUser}">Создание пользователя</h2>
+                <form id="create-user-form" th:action="@{/admin/createUser}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <div class="form-group">
+                        <label for="user-role" th:text="#{admin.role}">Роль:</label>
+                        <select id="user-role" name="role" required>
+                            <option value="" disabled selected th:text="#{admin.selectRole}">Выберите роль</option>
+                            <th:block th:each="role : ${roles}">
+                                <option th:value="${role.id}" th:text="${role.name}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-login" th:text="#{admin.login}">Логин:</label>
+                        <input type="text" id="user-login" name="login" th:placeholder="#{admin.enterLogin}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password" th:text="#{admin.password}">Пароль:</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="user-password" name="password" th:placeholder="#{admin.enterPassword}" required>
+                            <span class="toggle-password"><i class="fas fa-eye"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-fullname" th:text="#{admin.fullName}">ФИО:</label>
+                        <input type="text" id="user-fullname" name="fullName" th:placeholder="#{admin.enterFullName}" required>
+                    </div>
+                    <button type="submit" class="add-button" th:text="#{admin.createButton}">Создать пользователя</button>
+                </form>
+            </div>
+
+            <!-- Right column - User List -->
+            <div class="admin-column user-list">
+                <h2 th:text="#{admin.userList}">Список пользователей</h2>
+                <div class="search-box">
+                    <input type="text" id="user-search" th:placeholder="#{admin.searchPlaceholder}">
+                    <button class="search-button"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="users-container">
+                    <div class="user-card" th:each="user : ${users}">
+                        <div class="user-info">
+                            <h4 th:text="${user.fullName}"></h4>
+                            <p><strong th:text="#{admin.login}">Логин:</strong> <span th:text="${user.login}"></span></p>
+                            <p><strong th:text="#{admin.role}">Роль:</strong> <span th:text="${user.role}"></span></p>
+                            <p><strong th:text="#{admin.status}">Статус:</strong> 
+                                <span th:if="${user.active}" th:text="#{admin.active}" style="color: green;">Активен</span>
+                                <span th:unless="${user.active}" th:text="#{admin.blocked}" style="color: red;">Заблокирован</span>
+                            </p>
+                        </div>
+                        <div class="user-actions">
+                            <button class="edit-button"><i class="fas fa-edit"></i></button>
+                            <button class="delete-button"><i class="fas fa-trash-alt"></i></button>
+                            <button class="block-button" th:data-user-id="${user.id}" th:title="${user.active} ? #{admin.block} : #{admin.unblock}">
+                                <i th:if="${user.active}" class="fas fa-lock"></i>
+                                <i th:unless="${user.active}" class="fas fa-unlock"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle password visibility
+            document.querySelector('.toggle-password').addEventListener('click', function() {
+                const passwordInput = document.querySelector('#user-password');
+                const icon = this.querySelector('i');
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.replace('fa-eye', 'fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.replace('fa-eye-slash', 'fa-eye');
+                }
+            });
+
+            // Block/unblock user functionality
+            document.querySelectorAll('.block-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = this.getAttribute('data-user-id');
+                    const icon = this.querySelector('i');
+                    const isBlocking = icon.classList.contains('fa-lock');
+                    const csrfToken = document.querySelector('input[name="_csrf"]').value;
+                    
+                    fetch('/admin/toggleUserStatus', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({ userId: userId })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            // Update UI
+                            const statusLabel = this.closest('.user-card').querySelector('strong[data-th-text="#{admin.status}"]') || 
+                                                this.closest('.user-card').querySelector('strong:contains("Status:")') ||
+                                                this.closest('.user-card').querySelector('strong:contains("Статус:")');
+                            const statusElement = statusLabel.nextElementSibling;
+                            
+                            if (isBlocking) {
+                                icon.classList.replace('fa-lock', 'fa-unlock');
+                                statusElement.textContent = document.querySelector('[data-th-text="#{admin.blocked}"]')?.textContent || 'Blocked';
+                                statusElement.style.color = 'red';
+                                this.title = document.querySelector('[data-th-text="#{admin.unblock}"]')?.textContent || 'Unblock';
+                            } else {
+                                icon.classList.replace('fa-unlock', 'fa-lock');
+                                statusElement.textContent = document.querySelector('[data-th-text="#{admin.active}"]')?.textContent || 'Active';
+                                statusElement.style.color = 'green';
+                                this.title = document.querySelector('[data-th-text="#{admin.block}"]')?.textContent || 'Block';
+                            }
+                            
+                            // Show success message
+                            alert(document.querySelector('[data-th-text="#{admin.blockSuccess}"]')?.textContent || 'User status changed successfully');
+                        } else {
+                            alert((document.querySelector('[data-th-text="#{admin.blockError}"]')?.textContent || 'Error changing user status') + ': ' + (data.message || ''));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert(document.querySelector('[data-th-text="#{admin.blockError}"]')?.textContent || 'Error changing user status');
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
