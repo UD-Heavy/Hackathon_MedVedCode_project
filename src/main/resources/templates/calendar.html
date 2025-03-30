@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календарь</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/calendar.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="svg-container">
+            <a href="/">
+                <img th:src="@{/img/logo_main.png}" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <form action="/auth/login" method="get">
+                <button type="submit" class="book-now">Вход</button>
+            </form>
+            <select id="language-select">
+                <option value="ru">Русский</option>
+                <option value="en">English</option>
+            </select>
+        </nav>
+    </header>
+
+    <main>
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <div class="month-selector">
+                    <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                    <h2 id="current-month">Март 2025</h2>
+                    <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="calendar-body">
+                <div class="weekdays">
+                    <div>Пн</div>
+                    <div>Вт</div>
+                    <div>Ср</div>
+                    <div>Чт</div>
+                    <div>Пт</div>
+                    <div>Сб</div>
+                    <div>Вс</div>
+                </div>
+
+                <div class="days" id="calendar-days">
+                </div>
+            </div>
+        </div>
+
+        <div class="add-appointment-container">
+            <h3>Добавить встречу на <span id="selected-date">17 марта 2025</span></h3>
+
+            <div class="add-appointment">
+                <form id="appointment-form">
+                    <div class="form-group">
+                        <label for="appointment-time">Время:</label>
+                        <input type="time" id="appointment-time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-title">Название:</label>
+                        <input type="text" id="appointment-title" placeholder="Введите название" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-notes">Заметки:</label>
+                        <textarea id="appointment-notes" placeholder="Детали встречи"></textarea>
+                    </div>
+                    <button type="submit" class="add-button">Добавить</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="appointments-container">
+            <h3>Встречи на <span id="appointments-date">17 марта 2025</span></h3>
+
+            <div class="appointment-list-wrapper">
+                <div class="appointment-list" id="appointments">
+                    <div class="no-appointments">Нет запланированных встреч</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Объект с переводами
+            const translations = {
+                ru: {
+                    login: 'Вход',
+                    addAppointment: 'Добавить встречу на',
+                    time: 'Время:',
+                    title: 'Название:',
+                    titlePlaceholder: 'Введите название',
+                    notes: 'Заметки:',
+                    notesPlaceholder: 'Детали встречи',
+                    addButton: 'Добавить',
+                    appointments: 'Встречи на',
+                    noAppointments: 'Нет запланированных встреч',
+                    weekdays: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+                    months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+                            'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                    monthsGenitive: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+                                   'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+                },
+                en: {
+                    login: 'Login',
+                    addAppointment: 'Add appointment for',
+                    time: 'Time:',
+                    title: 'Title:',
+                    titlePlaceholder: 'Enter title',
+                    notes: 'Notes:',
+                    notesPlaceholder: 'Meeting details',
+                    addButton: 'Add',
+                    appointments: 'Appointments for',
+                    noAppointments: 'No scheduled appointments',
+                    weekdays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    months: ['January', 'February', 'March', 'April', 'May', 'June',
+                            'July', 'August', 'September', 'October', 'November', 'December'],
+                    monthsGenitive: ['January', 'February', 'March', 'April', 'May', 'June',
+                                   'July', 'August', 'September', 'October', 'November', 'December']
+                }
+            };
+
+            let currentLanguage = 'ru';
+            let allAppointments = [];
+            const STORAGE_KEY = 'calendarAppointments';
+
+            // Функция для обновления текста на странице
+            function updateLanguage(lang) {
+                currentLanguage = lang;
+                const t = translations[lang];
+
+                // Обновляем статический текст
+                document.querySelector('.book-now').textContent = t.login;
+                document.querySelector('.add-appointment-container h3').firstChild.textContent = t.addAppointment + ' ';
+                document.querySelector('.appointments-container h3').firstChild.textContent = t.appointments + ' ';
+                document.querySelector('label[for="appointment-time"]').textContent = t.time;
+                document.querySelector('label[for="appointment-title"]').textContent = t.title;
+                document.querySelector('#appointment-title').placeholder = t.titlePlaceholder;
+                document.querySelector('label[for="appointment-notes"]').textContent = t.notes;
+                document.querySelector('#appointment-notes').placeholder = t.notesPlaceholder;
+                document.querySelector('.add-button').textContent = t.addButton;
+                document.querySelector('.no-appointments').textContent = t.noAppointments;
+
+                // Обновляем дни недели
+                const weekdays = document.querySelectorAll('.weekdays div');
+                weekdays.forEach((day, index) => {
+                    day.textContent = t.weekdays[index];
+                });
+
+                // Обновляем текущий месяц и даты
+                const currentMonthElement = document.getElementById('current-month');
+                const [currentMonthName, year] = currentMonthElement.textContent.split(' ');
+                const monthIndex = translations.ru.months.indexOf(currentMonthName);
+                currentMonthElement.textContent = `${t.months[monthIndex]} ${year}`;
+
+                const selectedDate = document.getElementById('selected-date');
+                const [day, oldMonth, year2] = selectedDate.textContent.split(' ');
+                const monthIdx = translations.ru.monthsGenitive.indexOf(oldMonth);
+                selectedDate.textContent = `${day} ${t.monthsGenitive[monthIdx]} ${year2}`;
+                document.getElementById('appointments-date').textContent = selectedDate.textContent;
+            }
+
+            function loadAppointments() {
+                const savedAppointments = localStorage.getItem(STORAGE_KEY);
+                if (savedAppointments) {
+                    allAppointments = JSON.parse(savedAppointments);
+                } else {
+                    allAppointments = [];
+                }
+                const selectedDateText = document.getElementById('selected-date').textContent;
+                const dateObj = parseDateString(selectedDateText);
+                loadAppointmentsForDate(dateObj);
+                updateEventIndicators();
+            }
+
+            function saveAppointments() {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(allAppointments));
+                updateEventIndicators();
+            }
+
+            function formatDateToString(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+
+            function parseDateString(dateStr) {
+                const monthNames = translations[currentLanguage].monthsGenitive;
+                const parts = dateStr.split(' ');
+                const day = parseInt(parts[0]);
+                const month = monthNames.indexOf(parts[1]);
+                const year = parseInt(parts[2]);
+                return new Date(year, month, day);
+            }
+
+            function loadAppointmentsForDate(date) {
+                const dateString = formatDateToString(date);
+                const appointmentsForDate = allAppointments.filter(app => app.date === dateString);
+                appointmentsForDate.sort((a, b) => a.time < b.time ? -1 : a.time > b.time ? 1 : 0);
+                document.getElementById('appointments-date').textContent = document.getElementById('selected-date').textContent;
+                displayAppointments(appointmentsForDate);
+            }
+
+            function updateEventIndicators() {
+                document.querySelectorAll('.event-indicator').forEach(indicator => indicator.remove());
+                const currentMonthYear = document.getElementById('current-month').textContent.split(' ');
+                const month = translations[currentLanguage].months.indexOf(currentMonthYear[0]);
+                const year = parseInt(currentMonthYear[1]);
+
+                document.querySelectorAll('.day:not(.empty)').forEach(dayElement => {
+                    const day = parseInt(dayElement.textContent);
+                    const dateString = formatDateToString(new Date(year, month, day));
+                    const hasAppointments = allAppointments.some(app => app.date === dateString);
+                    if (hasAppointments) {
+                        const indicator = document.createElement('div');
+                        indicator.classList.add('event-indicator');
+                        dayElement.appendChild(indicator);
+                    }
+                });
+            }
+
+            function displayAppointments(appointments) {
+                const appointmentsList = document.getElementById('appointments');
+                appointmentsList.innerHTML = '';
+
+                if (appointments.length === 0) {
+                    const noAppointmentsElement = document.createElement('div');
+                    noAppointmentsElement.classList.add('no-appointments');
+                    noAppointmentsElement.textContent = translations[currentLanguage].noAppointments;
+                    appointmentsList.appendChild(noAppointmentsElement);
+                    return;
+                }
+
+                appointments.forEach(appointment => {
+                    const appointmentElement = document.createElement('div');
+                    appointmentElement.classList.add('appointment');
+                    appointmentElement.dataset.id = appointment.id;
+
+                    appointmentElement.innerHTML = `
+                        <div class="appointment-time">${appointment.time}</div>
+                        <div class="appointment-details">
+                            <h5>${appointment.title}</h5>
+                            <p>${appointment.notes}</p>
+                        </div>
+                        <div class="appointment-actions">
+                            <button class="delete-button"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    `;
+
+                    const deleteButton = appointmentElement.querySelector('.delete-button');
+                    deleteButton.addEventListener('click', function() {
+                        deleteAppointment(appointment.id);
+                    });
+
+                    appointmentsList.appendChild(appointmentElement);
+                });
+            }
+
+            function addAppointment(time, title, notes) {
+                const selectedDateText = document.getElementById('selected-date').textContent;
+                const dateObj = parseDateString(selectedDateText);
+                const dateString = formatDateToString(dateObj);
+
+                const newAppointment = {
+                    id: Date.now().toString(),
+                    date: dateString,
+                    time: time,
+                    title: title,
+                    notes: notes
+                };
+
+                allAppointments.push(newAppointment);
+                saveAppointments();
+                loadAppointmentsForDate(dateObj);
+            }
+
+            function deleteAppointment(id) {
+                const index = allAppointments.findIndex(app => app.id === id);
+                if (index !== -1) {
+                    allAppointments.splice(index, 1);
+                    saveAppointments();
+                    const selectedDateText = document.getElementById('selected-date').textContent;
+                    const dateObj = parseDateString(selectedDateText);
+                    loadAppointmentsForDate(dateObj);
+                }
+            }
+
+            function generateCalendar(year, month) {
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                let firstDayOfWeek = firstDay.getDay();
+                firstDayOfWeek = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
+
+                const calendarDays = document.getElementById('calendar-days');
+                calendarDays.innerHTML = '';
+
+                for (let i = 0; i < firstDayOfWeek; i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.classList.add('day', 'empty');
+                    calendarDays.appendChild(emptyDay);
+                }
+
+                const today = new Date();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('day');
+                    dayElement.textContent = i;
+
+                    if (year === today.getFullYear() && month === today.getMonth() && i === today.getDate()) {
+                        dayElement.classList.add('today');
+                    }
+
+                    dayElement.addEventListener('click', function() {
+                        document.querySelectorAll('.day').forEach(day => day.classList.remove('selected'));
+                        this.classList.add('selected');
+                        const dateText = `${i} ${translations[currentLanguage].monthsGenitive[month]} ${year}`;
+                        document.getElementById('selected-date').textContent = dateText;
+                        document.getElementById('appointments-date').textContent = dateText;
+                        loadAppointmentsForDate(new Date(year, month, i));
+                    });
+
+                    calendarDays.appendChild(dayElement);
+                }
+
+                document.getElementById('current-month').textContent =
+                    `${translations[currentLanguage].months[month]} ${year}`;
+                updateEventIndicators();
+            }
+
+            let currentDate = new Date();
+            let currentYear = currentDate.getFullYear();
+            let currentMonth = currentDate.getMonth();
+
+            const initToday = () => {
+                const today = new Date();
+                const day = today.getDate();
+                const month = today.getMonth();
+                const year = today.getFullYear();
+                const dateText = `${day} ${translations[currentLanguage].monthsGenitive[month]} ${year}`;
+                document.getElementById('selected-date').textContent = dateText;
+                document.getElementById('appointments-date').textContent = dateText;
+
+                setTimeout(() => {
+                    const todayElement = document.querySelector('.day.today');
+                    if (todayElement) todayElement.classList.add('selected');
+                }, 100);
+            };
+
+            generateCalendar(currentYear, currentMonth);
+            initToday();
+            loadAppointments();
+
+            document.getElementById('prev-month').addEventListener('click', function() {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                generateCalendar(currentYear, currentMonth);
+            });
+
+            document.getElementById('next-month').addEventListener('click', function() {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                generateCalendar(currentYear, currentMonth);
+            });
+
+            document.getElementById('appointment-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const time = document.getElementById('appointment-time').value;
+                const title = document.getElementById('appointment-title').value;
+                const notes = document.getElementById('appointment-notes').value;
+                addAppointment(time, title, notes);
+                this.reset();
+            });
+
+            document.getElementById('language-select').addEventListener('change', function() {
+                const selectedLanguage = this.value;
+                updateLanguage(selectedLanguage);
+                generateCalendar(currentYear, currentMonth);
+                const selectedDateText = document.getElementById('selected-date').textContent;
+                const dateObj = parseDateString(selectedDateText);
+                loadAppointmentsForDate(dateObj);
+            });
+
+            window.addEventListener('resize', function() {
+                setTimeout(() => {
+                    const selectedDateText = document.getElementById('selected-date').textContent;
+                    const dateObj = parseDateString(selectedDateText);
+                    loadAppointmentsForDate(dateObj);
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

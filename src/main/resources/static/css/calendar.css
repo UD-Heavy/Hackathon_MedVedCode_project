@@ -1,0 +1,505 @@
+/* Общие стили с шрифтом Roboto */
+body {
+    /* Шрифт */
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    
+    /* Отступы */
+    margin: 0;
+    padding: 0;
+    
+    /* Цвета */
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Стили для фиксированного верхнего меню */
+header {
+    /* Позиционирование */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+    
+    /* Отображение */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    /* Отступы и размеры */
+    padding: 20px 50px;
+    box-sizing: border-box;
+    
+    /* Цвета и границы */
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Стили для контейнера логотипа */
+.svg-container {
+    display: flex;
+    align-items: center;
+}
+
+.svg-container img {
+    height: 52px;
+    width: auto;
+    max-width: 150px;
+}
+
+/* Стили для навигации */
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    /* Шрифт */
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    
+    /* Отступы */
+    margin: 0 15px;
+    
+    /* Цвета */
+    color: #333;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #007bff;
+}
+
+.book-now {
+    /* Шрифт */
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    
+    /* Отступы */
+    padding: 10px 20px;
+    margin-left: 15px;
+    
+    /* Цвета */
+    background-color: #007bff;
+    color: #fff;
+    
+    /* Границы */
+    border: none;
+    border-radius: 5px;
+    
+    /* Интерактивность */
+    cursor: pointer;
+}
+
+.book-now:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для выпадающего списка */
+#language-select {
+    /* Шрифт */
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    
+    /* Отступы */
+    padding: 8px 12px;
+    margin-left: 15px;
+    
+    /* Цвета */
+    color: #333;
+    background-color: white;
+    
+    /* Границы */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    
+    /* Интерактивность */
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#language-select:hover {
+    border-color: #666;
+}
+
+#language-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+#language-select option {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+}
+
+/* Основной контейнер */
+main {
+    display: flex;
+    flex-direction: row;
+    padding-top: 100px; /* Чтобы контент не перекрывался фиксированным хедером */
+    padding-bottom: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+@media (max-width: 992px) {
+    main {
+        flex-direction: column;
+        padding-top: 80px;
+    }
+}
+
+/* Общие стили для всех трех блоков */
+.calendar-container, .add-appointment-container, .appointments-container {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Стили для календаря */
+.calendar-container {
+    max-width: 400px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.month-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.month-selector button {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: #007bff;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.month-selector button:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.month-selector h2 {
+    margin: 0;
+    font-weight: 500;
+    color: #007bff;
+}
+
+/* Сетка календаря */
+.calendar-body {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.day {
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.day:hover:not(.empty) {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.day.today {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.day.selected {
+    background-color: rgba(0, 123, 255, 0.2);
+    border: 2px solid #007bff;
+}
+
+.day.empty {
+    cursor: default;
+}
+
+/* Индикатор событий (точка над датой) */
+.day .event-indicator {
+    width: 5px;
+    height: 5px;
+    background-color: #ff5722;
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    transform: translateX(-50%);
+}
+
+/* Стиль для заголовков контейнеров */
+.add-appointment-container h3, .appointments-container h3 {
+    margin-top: 0;
+    color: #007bff;
+    font-weight: 500;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Стили для контейнера добавления встречи */
+.add-appointment-container {
+    max-width: 350px;
+}
+
+.add-appointment {
+    flex-grow: 1;
+}
+
+/* Форма добавления встречи */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    height: 120px;
+    resize: none;
+    overflow-y: auto;
+    min-height: 120px;
+    max-height: 120px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.add-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для контейнера списка встреч */
+.appointments-container {
+    max-width: 350px;
+}
+
+.appointment-list-wrapper {
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+    min-height: 200px; /* Добавьте минимальную высоту */
+}
+
+.appointment-list {
+    position: relative; /* Измените на relative вместо absolute */
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.no-appointments {
+    text-align: center;
+    color: #999;
+    padding: 20px 0;
+}
+
+.appointment {
+    display: flex;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.appointment:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.appointment-time {
+    font-weight: 500;
+    background-color: #f0f8ff;
+    color: #007bff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    min-width: 60px;
+    text-align: center;
+    margin-right: 15px;
+}
+
+.appointment-details {
+    flex: 1;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.appointment-details h5 {
+    margin: 0 0 5px;
+    font-weight: 500;
+}
+
+.appointment-details p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.appointment-actions {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.appointment-actions button {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s;
+}
+
+.edit-button:hover {
+    color: #007bff;
+}
+
+.delete-button:hover {
+    color: #dc3545;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 992px) {
+    main {
+        padding: 100px 20px 40px;
+    }
+    
+    .calendar-container, .add-appointment-container, .appointments-container {
+        max-width: 100%;
+        min-height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+    
+    .day {
+        height: 35px;
+    }
+}
+
+@media (max-width: 576px) {
+    .book-now {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    #language-select {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+    
+    .day {
+        height: 30px;
+        font-size: 12px;
+    }
+    
+    .appointment {
+        flex-direction: column;
+    }
+    
+    .appointment-time {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .appointment-actions {
+        margin-top: 10px;
+    }
+}
