@@ -50,21 +50,30 @@
             <p th:text="#{calendar.upcomingEvents}">Upcoming events:</p>
             <ul class="event-list">
                 <li>
-                    <div class="event-date">1 октября</div>
+                    <div class="event-date">
+                        <span>31</span>
+                        <span th:text="#{calendar.month.march.genitive}"></span>
+                    </div>
                     <div class="event-info">
                         <h4 th:text="#{calendar.event1.title}"></h4>
                         <p th:text="#{calendar.event1.desc}"></p>
                     </div>
                 </li>
                 <li>
-                    <div class="event-date">5 октября</div>
+                    <div class="event-date">
+                        <span>2</span>
+                        <span th:text="#{calendar.month.april.genitive}"></span>
+                    </div>
                     <div class="event-info">
                         <h4 th:text="#{calendar.event2.title}"></h4>
                         <p th:text="#{calendar.event2.desc}"></p>
                     </div>
                 </li>
                 <li>
-                    <div class="event-date">10 октября</div>
+                    <div class="event-date">
+                        <span>3</span>
+                        <span th:text="#{calendar.month.april.genitive}"></span>
+                    </div>
                     <div class="event-info">
                         <h4 th:text="#{calendar.event3.title}"></h4>
                         <p th:text="#{calendar.event3.desc}"></p>
@@ -79,26 +88,22 @@
             <table class="schedule-table">
                 <thead>
                 <tr>
-                    <th th:text="#{schedule.date}"></th>
-                    <th th:text="#{schedule.event}"></th>
                     <th th:text="#{schedule.time}"></th>
+                    <th th:text="#{schedule.event}"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>2 октября</td>
+                    <td>9:00</td>
                     <td th:text="#{schedule.row1.event}"></td>
-                    <td>10:00 - 15:00</td>
                 </tr>
                 <tr>
-                    <td>4 октября</td>
+                    <td>12:00</td>
                     <td th:text="#{schedule.row2.event}"></td>
-                    <td>11:00 - 13:00</td>
                 </tr>
                 <tr>
-                    <td>7 октября</td>
+                    <td>16:50</td>
                     <td th:text="#{schedule.row3.event}"></td>
-                    <td>09:00 - 14:00</td>
                 </tr>
                 </tbody>
             </table>
@@ -107,7 +112,7 @@
         <div class="links-container">
             <h3 th:text="#{resources.title}"></h3>
             <div class="link-grid">
-                <a href="https://example.com/system1" class="link-card">
+                <a th:href="@{/pacient}" class="link-card">
                     <i class="fas fa-hospital"></i>
                     <span th:text="#{resources.system1}"></span>
                 </a>
